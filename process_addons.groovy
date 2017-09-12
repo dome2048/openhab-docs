@@ -11,8 +11,8 @@ def collect_features = { features ->
     collect_feature_xml(features, '_repos/openhab-distro/features/addons-esh/src/main/feature/feature.xml',      ['install': 'auto',   'since': '2x'])
     collect_feature_xml(features, '_repos/openhab-distro/features/addons/src/main/feature/feature.xml',          ['install': 'auto',   'since': '2x'])
     collect_feature_xml(features, '_repos/openhab2-addons/features/openhab-addons/src/main/feature/feature.xml', ['install': 'auto',   'since': '2x'])
-    collect_feature_xml(features, '_repos/openhab/features/openhab-addons/src/main/feature/feature.xml',         ['install': 'auto',   'since': '1x'])
-    collect_feature_xml(features, '_repos/openhab/features/openhab-addons-legacy/src/main/feature/feature.xml',  ['install': 'legacy', 'since': '1x'])
+    collect_feature_xml(features, '_repos/openhab1-addons/features/openhab-addons/src/main/feature/feature.xml',         ['install': 'auto',   'since': '1x'])
+    collect_feature_xml(features, '_repos/openhab1-addons/features/openhab-addons-legacy/src/main/feature/feature.xml',  ['install': 'legacy', 'since': '1x'])
 }
 
 def process_addon_type = { features, sources, type, collection, suffix, lblremoves, pkgremoves ->
@@ -68,7 +68,7 @@ def process_addon_type = { features, sources, type, collection, suffix, lblremov
                         front['logo'] = 'images/addons/' + id + '.png'
                     }
                     def feature_id = (source == 'oh1' && (type == 'binding' || type == 'io')) ? id + '1' : id
-                    def feature = features.find { 
+                    def feature = features.find {
                         it.key.startsWith("openhab-${type}-${feature_id}") ||
                         (type == 'io' && it.key.startsWith("openhab-misc-${feature_id}")) ||
                         (type == 'transform' && it.key.startsWith("openhab-transformation-${feature_id}"))
@@ -100,4 +100,3 @@ def process_addon_files = { features ->
 def features = [:]
 collect_features(features)
 process_addon_files(features)
-
